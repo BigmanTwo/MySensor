@@ -7,6 +7,7 @@ import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,11 +41,15 @@ public class GroupActivity extends AppCompatActivity implements SensorEventListe
         if (event.sensor.getType()==Sensor.TYPE_ORIENTATION){
             degree= (int) event.values[0];
             RotateAnimation rotateAnimation=new RotateAnimation(num,-degree,1,0.5f,1,0.5f);
-
+            rotateAnimation.setDuration(200);
             rotateAnimation.setFillAfter(true);
             mImageView.setAnimation(rotateAnimation);
             num+=-degree;
         }
+        int x= (int) event.values[sensorManager.DATA_X];
+        int y= (int) event.values[sensorManager.DATA_Y];
+        int z= (int) event.values[sensorManager.DATA_Z];
+        mTextView.setText("x轴:"+x+"y轴:"+y+"z轴:"+z);
     }
 
     //传感器精度
